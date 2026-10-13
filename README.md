@@ -4,7 +4,7 @@
 
 把岗位筛选过程变成可交互的漏斗：每加一层限制，立即看到还剩多少**岗位 / 招录名额**、这一层筛掉多少，以及剩余岗位的原文备注。无需注册、无需安装、无需导入表格。
 
-**[点这里直接使用在线版](https://xwchan.github.io/gongkao-position-funnel/)** · **[下载单文件 HTML，离线使用](https://github.com/xwchan/gongkao-position-funnel/releases/latest/download/index.html)**
+**[点这里直接使用在线版](https://xwchan.github.io/gongkao-position-funnel/)** · **[下载单文件 HTML，离线使用](https://github.com/xwchan/gongkao-position-funnel/raw/refs/heads/main/index.html)**
 
 > 非官方的个人学习工具，不构成报考建议或资格证明。数据源网站为[国家公务员局考录专题网站 · 相关下载](http://bm.scs.gov.cn/pp/gkweb/core/web/ui/business/download/gkdownloads.html)，文件提供者确认数据文件下载自该网站。我们核对了本地源文件与网页的岗位内容；但没有另行从官方网站下载一份并校验哈希，因此**不能独立证明发布版本与官网完全一致**。请以正式公告及招录机关解释为准。
 
