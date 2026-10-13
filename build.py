@@ -9,6 +9,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+from zipfile import ZipFile
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 from classify import classify  # noqa: E402
@@ -41,7 +42,14 @@ def workbook_rows(path: Path) -> tuple[list[list], list[str]]:
         import xlrd
     except ImportError as error:
         raise SystemExit("缺少 xlrd，请先运行：python3 -m pip install -r requirements.txt") from error
-    workbook = xlrd.open_workbook(str(path), on_demand=True)
+    if path.suffix.lower() == ".zip":
+        with ZipFile(path) as archive:
+            members = [entry for entry in archive.infolist() if entry.filename.lower().endswith(".xls")]
+            if len(members) != 1:
+                raise ValueError("ZIP 中必须恰好包含一份 XLS 招考简章")
+            workbook = xlrd.open_workbook(file_contents=archive.read(members[0]), on_demand=True)
+    else:
+        workbook = xlrd.open_workbook(str(path), on_demand=True)
     rows: list[list] = []
     sheets: list[str] = []
     for sheet in workbook.sheets():
@@ -115,7 +123,7 @@ def render(rows: list[list], sheets: list[str], source: str, modified: str, demo
 def main() -> None:
     parser = argparse.ArgumentParser(description="从 2027 国考招考简章 .xls 生成离线数据漏斗 HTML")
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--input", type=Path, help="本地招考简章 .xls 文件（不会被上传）")
+    source.add_argument("--input", type=Path, help="本地招考简章 .xls 或含单份 .xls 的 .zip（不会被上传）")
     source.add_argument("--demo", action="store_true", help="生成醒目标注的虚构样例（不含真实岗位）")
     parser.add_argument("--output", type=Path, help="输出文件路径，默认 dist/index.html")
     args = parser.parse_args()
@@ -124,15 +132,25 @@ def main() -> None:
         render(rows, sheets, "虚构样例数据", "—", True, args.output or Path("dist/demo.html"))
     else:
         path = args.input.expanduser().resolve()
-        if not path.is_file() or path.suffix.lower() != ".xls":
-            parser.error("--input 必须是存在的 .xls 文件")
+        if not path.is_file() or path.suffix.lower() not in (".xls", ".zip"):
+            parser.error("--input 必须是存在的 .xls 或 .zip 文件")
         rows, sheets = workbook_rows(path)
-        modified = datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M")
-        digest = hashlib.sha256()
-        with path.open("rb") as stream:
-            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-                digest.update(chunk)
-        render(rows, sheets, path.name, modified, False, args.output or Path("dist/index.html"), digest.hexdigest())
+        if path.suffix.lower() == ".zip":
+            with ZipFile(path) as archive:
+                member = next(info for info in archive.infolist() if info.filename.lower().endswith(".xls"))
+                content = archive.read(member)
+                modified = datetime(*member.date_time).strftime("%Y-%m-%d %H:%M")
+                source_name = path.stem + ".xls"
+                digest = hashlib.sha256(content).hexdigest()
+        else:
+            modified = datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M")
+            source_name = path.name
+            digest = hashlib.sha256()
+            with path.open("rb") as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                    digest.update(chunk)
+            digest = digest.hexdigest()
+        render(rows, sheets, source_name, modified, False, args.output or Path("dist/index.html"), digest)
 
 
 if __name__ == "__main__":

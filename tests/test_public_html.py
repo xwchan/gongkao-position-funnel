@@ -1,5 +1,4 @@
 """Guardrails for the checked-in, self-contained public page."""
-import hashlib
 import json
 from pathlib import Path
 import re
@@ -14,6 +13,9 @@ class PublicPageTests(unittest.TestCase):
     def test_complete_single_file_and_provenance(self):
         content = PAGE.read_text(encoding="utf-8")
         self.assertNotIn("__DATA_JSON__", content)
+        self.assertIn('id="count-equation"', content)
+        self.assertIn("查看全部岗位", content)
+        self.assertIn("用户确认从官方网站下载", content)
         match = re.search(r"const SOURCE=(\{.*?\});\s*const R=", content, re.DOTALL)
         self.assertIsNotNone(match)
         data = json.loads(match.group(1))
