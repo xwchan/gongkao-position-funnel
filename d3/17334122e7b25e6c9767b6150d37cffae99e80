@@ -1,0 +1,32 @@
+src/index.html
+  s_210f9fa4c548e5::t_3308b6e66b76e9 31,33,134
+  s_210f9fa4c548e5::t_c1524d0108e1eb 7-8,11,14,28,30,32,34-42,60
+data/README.md
+  s_210f9fa4c548e5::t_3308b6e66b76e9 1-16
+DATA_NOTICE.md
+  s_210f9fa4c548e5::t_3308b6e66b76e9 1,3,5,9-16
+index.html
+  s_210f9fa4c548e5::t_48d10dc3179986 7-8,11,14,28,30-42,60,134
+README.md
+  s_210f9fa4c548e5::t_3308b6e66b76e9 1-3,9-11,24,32-36
+VALIDATION.md
+  s_210f9fa4c548e5::t_3308b6e66b76e9 26-29
+.gitignore
+  s_210f9fa4c548e5::t_c1524d0108e1eb 11-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.49-trip",
+  "base_commit_sha": "d317334122e7b25e6c9767b6150d37cffae99e80",
+  "prompts": {},
+  "sessions": {
+    "s_210f9fa4c548e5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a134f2-5d23-76f1-ab80-e1df7cb3f693",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "xwchan <45824736+xwchan@users.noreply.github.com>"
+    }
+  }
+}
