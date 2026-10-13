@@ -1,0 +1,36 @@
+build.py
+  s_86e075b966e56b::t_dac2ea6e4d6d3a 12,45-52,126,135-136,138-153
+tests/test_public_html.py
+  s_86e075b966e56b::t_aaff10348f69ac 16-18
+index.html
+  s_86e075b966e56b::t_dac2ea6e4d6d3a 14,35,38,46,96,120
+verify.py
+  s_86e075b966e56b::t_f2e58d105d7261 1-142
+VALIDATION.md
+  s_86e075b966e56b::t_dac2ea6e4d6d3a 1-30
+DATA_NOTICE.md
+  s_86e075b966e56b::t_3ed810fb82ba00 3
+src/index.html
+  s_86e075b966e56b::t_3ed810fb82ba00 14,35,38,96
+  s_86e075b966e56b::t_f2e58d105d7261 46,120
+README.md
+  s_86e075b966e56b::t_5598f3ac3e8e85 20
+  s_86e075b966e56b::t_aaff10348f69ac 11,30,34,37
+  s_86e075b966e56b::t_3ed810fb82ba00 7,15,19,21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.49-trip",
+  "base_commit_sha": "694e51d335ea4b21c08120284007e660c80b102e",
+  "prompts": {},
+  "sessions": {
+    "s_86e075b966e56b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1346a-3b12-70b1-9ba6-2ae45fb579ab",
+        "model": "gpt-6-sol-2026-09-22[1M]"
+      },
+      "human_author": "xwchan <45824736+xwchan@users.noreply.github.com>"
+    }
+  }
+}
