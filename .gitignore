@@ -8,3 +8,7 @@ __pycache__/
 dist/
 *.csv
 *.html.bak
+
+# Publish only the audited 2027 source files.
+!data/gk2027-original.xls
+!data/gk2027-original.zip
