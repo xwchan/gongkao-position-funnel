@@ -1,0 +1,19 @@
+README.md
+  s_210f9fa4c548e5::t_86ae1c47899d1f 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.49-trip",
+  "base_commit_sha": "bb81bbff32f2b6c47b926ebada05d1198496bbe2",
+  "prompts": {},
+  "sessions": {
+    "s_210f9fa4c548e5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a134f2-5d23-76f1-ab80-e1df7cb3f693",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "xwchan <45824736+xwchan@users.noreply.github.com>"
+    }
+  }
+}
