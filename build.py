@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from datetime import datetime
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -87,7 +88,7 @@ def demo_rows() -> tuple[list[list], list[str]]:
     return rows, ["虚构样例"]
 
 
-def render(rows: list[list], sheets: list[str], source: str, modified: str, demo: bool, output: Path) -> None:
+def render(rows: list[list], sheets: list[str], source: str, modified: str, demo: bool, output: Path, source_sha256: str = "") -> None:
     if not rows:
         raise ValueError("没有可供生成报表的岗位")
     ids = [(row[19], row[3]) for row in rows]
@@ -98,7 +99,7 @@ def render(rows: list[list], sheets: list[str], source: str, modified: str, demo
         "seats": sum(row[6] for row in rows), "provinces": sorted({row[5] for row in rows}),
         "attributes": sorted({row[13] for row in rows}),
         "identityCounts": dict(Counter(row[20] for row in rows)),
-        "fileMtime": modified, "demo": demo,
+        "fileMtime": modified, "demo": demo, "sourceSha256": source_sha256,
     }
     payload = json.dumps({"rows": rows, "meta": meta}, ensure_ascii=False, separators=(",", ":"))
     payload = (payload.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
@@ -127,7 +128,11 @@ def main() -> None:
             parser.error("--input 必须是存在的 .xls 文件")
         rows, sheets = workbook_rows(path)
         modified = datetime.fromtimestamp(path.stat().st_mtime).strftime("%Y-%m-%d %H:%M")
-        render(rows, sheets, path.name, modified, False, args.output or Path("dist/index.html"))
+        digest = hashlib.sha256()
+        with path.open("rb") as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(chunk)
+        render(rows, sheets, path.name, modified, False, args.output or Path("dist/index.html"), digest.hexdigest())
 
 
 if __name__ == "__main__":
