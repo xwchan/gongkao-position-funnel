@@ -1,0 +1,23 @@
+README.md
+  s_86e075b966e56b::t_841505dd48345a 1-50
+src/index.html
+  s_86e075b966e56b::t_24ced2b0e5957b 1-122
+.github/workflows/tests.yml
+  s_86e075b966e56b::t_841505dd48345a 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.49-trip",
+  "base_commit_sha": "f7f33409dfcd7592957a95dc512c77f82ce40ded",
+  "prompts": {},
+  "sessions": {
+    "s_86e075b966e56b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1346a-3b12-70b1-9ba6-2ae45fb579ab",
+        "model": "gpt-6-sol-2026-09-22[1M]"
+      },
+      "human_author": "xwchan <45824736+xwchan@users.noreply.github.com>"
+    }
+  }
+}
